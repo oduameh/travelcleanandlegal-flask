@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Primary Meta Tags -->
+  <title>{% block title %}{{ config.SITE_NAME }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Expert guides on relocating from Nigeria to UK, Canada, USA, Germany & more. Visa requirements, IELTS tips, cost of living, job opportunities, and step-by-step relocation guides.{% endblock %}">
+  <meta name="keywords" content="{% block meta_keywords %}japa, relocate from Nigeria, UK visa Nigeria, Canada immigration Nigeria, move abroad from Nigeria, Nigerian diaspora, study abroad Nigeria{% endblock %}">
+  <meta name="author" content="{{ config.SITE_NAME }}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{% block canonical %}{{ config.SITE_URL }}{% endblock %}">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:url" content="{% block og_url %}{{ config.SITE_URL }}{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{{ config.SITE_NAME }} | {{ config.SITE_DESCRIPTION }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Expert guides on relocating from Nigeria to UK, Canada, USA, Germany & more.{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}{{ config.SITE_URL }}/static/images/og-image.jpg{% endblock %}">
+  <meta property="og:site_name" content="{{ config.SITE_NAME }}">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{% block twitter_url %}{{ config.SITE_URL }}{% endblock %}">
+  <meta property="twitter:title" content="{% block twitter_title %}{{ config.SITE_NAME }} | {{ config.SITE_DESCRIPTION }}{% endblock %}">
+  <meta property="twitter:description" content="{% block twitter_description %}Expert guides on relocating from Nigeria to UK, Canada, USA, Germany & more.{% endblock %}">
+  <meta property="twitter:image" content="{% block twitter_image %}{{ config.SITE_URL }}/static/images/og-image.jpg{% endblock %}">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+  
+  {% block extra_head %}{% endblock %}
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config.ADSENSE_CLIENT_ID }}" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="{{ url_for('home') }}" class="header__logo">
+        <span class="header__logo-icon">🌍</span>
+        <span>{{ config.SITE_NAME }}</span>
+      </a>
+      
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav__toggle-icon"></span>
+        </button>
+        <ul class="nav__list" id="nav-menu">
+          <li><a href="{{ url_for('home') }}" class="nav__link {% if request.endpoint == 'home' %}nav__link--active{% endif %}">Home</a></li>
+          <li><a href="{{ url_for('blog') }}" class="nav__link {% if request.endpoint == 'blog' %}nav__link--active{% endif %}">Guides</a></li>
+          <li><a href="{{ url_for('about') }}" class="nav__link {% if request.endpoint == 'about' %}nav__link--active{% endif %}">About</a></li>
+          <li><a href="{{ url_for('contact') }}" class="nav__link {% if request.endpoint == 'contact' %}nav__link--active{% endif %}">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container" style="padding-top: 1rem;">
+      {% for category, message in messages %}
+      <div class="alert alert--{{ category }}" style="padding: 1rem; margin-bottom: 1rem; border-radius: 8px; background: {% if category == 'success' %}#d4edda{% elif category == 'error' %}#f8d7da{% else %}#cce5ff{% endif %}; color: {% if category == 'success' %}#155724{% elif category == 'error' %}#721c24{% else %}#004085{% endif %};">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Main Content -->
+  {% block content %}{% endblock %}
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">{{ config.SITE_NAME }}</div>
+          <p class="footer__description">
+            Your trusted guide to relocating from Nigeria. Expert advice on visas, 
+            immigration, and building a successful life abroad.
+          </p>
+        </div>
+        
+        <div class="footer__column">
+          <h4 class="footer__title">Destinations</h4>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('blog') }}?category=uk">United Kingdom</a></li>
+            <li><a href="{{ url_for('blog') }}?category=canada">Canada</a></li>
+            <li><a href="{{ url_for('blog') }}?category=usa">United States</a></li>
+            <li><a href="{{ url_for('blog') }}?category=germany">Germany</a></li>
+            <li><a href="{{ url_for('blog') }}?category=australia">Australia</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__column">
+          <h4 class="footer__title">Resources</h4>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('blog') }}?category=ielts">IELTS Preparation</a></li>
+            <li><a href="{{ url_for('blog') }}?category=healthcare">Healthcare</a></li>
+            <li><a href="{{ url_for('blog') }}?category=tech">Tech Jobs</a></li>
+            <li><a href="{{ url_for('blog') }}?category=study">Study Abroad</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__column">
+          <h4 class="footer__title">Company</h4>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            <li><a href="mailto:{{ config.CONTACT_EMAIL }}">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer__bottom">
+        <p class="footer__copyright">
+          &copy; {{ now.year }} {{ config.SITE_NAME }}. All rights reserved.
+        </p>
+        <div class="footer__legal">
+          <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+          <a href="{{ url_for('terms') }}">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile menu toggle
+    const navToggle = document.querySelector('.nav__toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', isOpen);
+      });
+    }
+  </script>
+  
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

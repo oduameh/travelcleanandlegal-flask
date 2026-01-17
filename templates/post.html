@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | {{ config.SITE_NAME }}{% endblock %}
+{% block meta_description %}{{ post.meta_description or post.excerpt }}{% endblock %}
+{% block meta_keywords %}{{ post.meta_keywords }}{% endblock %}
+{% block canonical %}{{ config.SITE_URL }}/post/{{ post.slug }}{% endblock %}
+
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.excerpt }}{% endblock %}
+{% block og_image %}{{ post.image_url }}{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ post.title }}",
+  "description": "{{ post.excerpt }}",
+  "author": {"@type": "Person", "name": "{{ config.SITE_NAME }} Team"},
+  "publisher": {"@type": "Organization", "name": "{{ config.SITE_NAME }}"},
+  "datePublished": "{{ post.published_date.isoformat() }}",
+  "dateModified": "{{ post.updated_date.isoformat() }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<article class="article">
+  <div class="container">
+    <header class="article__header">
+      <a href="{{ url_for('blog') }}?category={{ post.category.slug }}" class="article__category">{{ post.category.name }}</a>
+      <h1 class="article__title">{{ post.title }}</h1>
+      <div class="article__meta">
+        <span class="article__meta-item">{{ config.SITE_NAME }} Team</span>
+        <span class="article__meta-item">{{ post.formatted_date }}</span>
+        <span class="article__meta-item">{{ post.read_time }}</span>
+      </div>
+    </header>
+
+    {% if post.image_url %}
+    <img src="{{ post.image_url }}" alt="{{ post.title }}" class="article__featured-image">
+    {% endif %}
+
+    <div class="article__content">
+      {{ post.content|safe }}
+    </div>
+
+    <div class="author-box">
+      <div class="author-box__info">
+        <h4>{{ config.SITE_NAME }} Team</h4>
+        <p class="author-box__bio">Expert guides on relocating from Nigeria. We provide accurate, up-to-date information to help you navigate your immigration journey successfully.</p>
+      </div>
+    </div>
+    
+    {% if related_posts %}
+    <div class="related-articles">
+      <h3>Related Guides</h3>
+      <div class="articles-grid">
+        {% for related in related_posts[:3] %}
+        <article class="card">
+          <div class="card__content">
+            <span class="card__category">{{ related.category.name }}</span>
+            <h4 class="card__title"><a href="{{ url_for('post', slug=related.slug) }}">{{ related.title }}</a></h4>
+            <p class="card__excerpt">{{ related.excerpt[:100] }}...</p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</article>
+{% endblock %}

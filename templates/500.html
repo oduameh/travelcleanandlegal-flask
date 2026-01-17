@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Server Error - Travel Clean & Legal{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container text-center">
+        <h1>500 - Server Error</h1>
+        <p class="section__description mb-4">
+            Something went wrong on our end. Please try again later.
+        </p>
+        <div class="hero__cta" style="justify-content: center;">
+            <a href="{{ url_for('home') }}" class="btn btn--primary">Go Home</a>
+            <a href="{{ url_for('contact') }}" class="btn btn--secondary">Contact Us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

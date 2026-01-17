@@ -1,0 +1,22 @@
+# robots.txt for travelcleanandlegal.live
+# https://www.robotstxt.org/
+
+# Allow all crawlers access to public content
+User-agent: *
+Allow: /
+Allow: /ads.txt
+
+# Block admin area
+Disallow: /admin/
+Disallow: /admin
+
+# Sitemap location
+Sitemap: https://travelcleanandlegal.live/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /

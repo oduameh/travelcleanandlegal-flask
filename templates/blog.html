@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Japa Guides - All Articles | {{ config.SITE_NAME }}{% endblock %}
+{% block meta_description %}Complete collection of guides on relocating from Nigeria. UK, Canada, Germany, Australia visa guides, IELTS tips, job search strategies, and more.{% endblock %}
+{% block canonical %}{{ config.SITE_URL }}/blog{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <header class="section__header">
+      <h1 class="section__title">All Japa Guides</h1>
+      <p class="section__description">Comprehensive guides on relocating from Nigeria to UK, Canada, Germany, Australia, and beyond.</p>
+    </header>
+
+    {% for category, posts in posts_by_category.items() %}
+    {% if posts|length > 0 %}
+    <div style="margin-top: 3rem;">
+      <h2 style="font-family: var(--font-heading); font-size: 1.75rem; color: var(--color-primary); margin-bottom: 1.5rem; border-bottom: 2px solid var(--color-primary); padding-bottom: 0.5rem;">{{ category.emoji }} {{ category.name }}</h2>
+      <div class="articles-grid">
+        {% for post in posts %}
+        <article class="card">
+          <div class="card__content">
+            <span class="card__category">{{ category.name }}</span>
+            <h3 class="card__title"><a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a></h3>
+            <p class="card__excerpt">{{ post.excerpt }}</p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    
+    {% if loop.index == 2 or loop.index == 5 %}
+    <div class="ad-container ad-container--safe" style="margin-top: 2rem;">
+      <span class="ad-label">Advertisement</span>
+      <div class="ad-slot"><span>Ad Space</span></div>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

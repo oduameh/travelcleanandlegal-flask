@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}About {{ config.SITE_NAME }} | Your Trusted Nigerian Emigration Guide{% endblock %}
+{% block meta_description %}{{ config.SITE_NAME }} provides expert guides on relocating from Nigeria. Learn about our mission to help Nigerians navigate international immigration successfully.{% endblock %}
+{% block canonical %}{{ config.SITE_URL }}/about{% endblock %}
+
+{% block content %}
+<article class="article">
+  <div class="container">
+    <header class="article__header">
+      <h1 class="article__title">About {{ config.SITE_NAME }}</h1>
+    </header>
+
+    <div class="article__content">
+      <h2>Our Mission</h2>
+      <p>{{ config.SITE_NAME }} exists to provide accurate, comprehensive, and up-to-date information for Nigerians looking to relocate abroad. We understand that the decision to "japa" (emigrate) is one of the most significant life choices anyone can make, and we believe everyone deserves access to reliable information to make informed decisions.</p>
+
+      <p>Too many Nigerians have fallen victim to misinformation, scams, and poor advice when pursuing international opportunities. Our mission is to change that by providing free, quality content that covers every aspect of the relocation journey—from visa applications to settling into a new country.</p>
+
+      <h2>What We Cover</h2>
+      <p>Our guides cover the most popular destinations for Nigerian emigrants:</p>
+      <ul>
+        <li><strong>United Kingdom:</strong> Skilled Worker Visas, Care Worker Visas, Student Visas, and settlement</li>
+        <li><strong>Canada:</strong> Express Entry, Provincial Nominee Programs, Study Permits</li>
+        <li><strong>Germany:</strong> Opportunity Card, EU Blue Card, Study Visas</li>
+        <li><strong>Australia:</strong> Skilled Migration, Student Visas</li>
+        <li><strong>United States:</strong> H1B, F1, Green Card pathways</li>
+        <li><strong>Ireland:</strong> Critical Skills Employment Permits</li>
+      </ul>
+
+      <p>We also provide guides on essential topics like IELTS preparation, proof of funds documentation, CV writing, job searching, and financial planning for relocation.</p>
+
+      <h2>Our Standards</h2>
+      <p>Every article on {{ config.SITE_NAME }} is:</p>
+      <ul>
+        <li><strong>Accurate:</strong> We research official government sources and stay updated on policy changes</li>
+        <li><strong>Practical:</strong> We include actionable steps, real costs, and realistic timelines</li>
+        <li><strong>Honest:</strong> We don't promise easy paths—immigration is challenging, and we tell you what to expect</li>
+        <li><strong>Free:</strong> All our content is freely accessible to everyone</li>
+      </ul>
+
+      <h2>Disclaimer</h2>
+      <p>{{ config.SITE_NAME }} provides general information for educational purposes. We are not immigration lawyers or licensed advisors. Immigration rules change frequently, and individual circumstances vary. Always:</p>
+      <ul>
+        <li>Verify current requirements on official government websites</li>
+        <li>Consult with licensed immigration professionals for complex cases</li>
+        <li>Never pay for visa guarantees—no legitimate service can guarantee visa approval</li>
+      </ul>
+
+      <h2>Contact Us</h2>
+      <p>Have questions, suggestions, or want to share your relocation story? We'd love to hear from you. Visit our <a href="{{ url_for('contact') }}">contact page</a> to get in touch.</p>
+
+      <h2>Support Our Work</h2>
+      <p>{{ config.SITE_NAME }} is supported by advertising. By reading our content and sharing it with others, you help us continue providing free resources to Nigerians worldwide. Thank you for your support!</p>
+    </div>
+  </div>
+</article>
+{% endblock %}

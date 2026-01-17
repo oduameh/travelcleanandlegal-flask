@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.SITE_NAME }} | Your Complete Guide to Relocating from Nigeria{% endblock %}
+
+{% block extra_head %}
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ config.SITE_NAME }}",
+  "url": "{{ config.SITE_URL }}",
+  "description": "Your complete guide to relocating from Nigeria. Expert advice on visas, immigration, and building a new life abroad.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ config.SITE_NAME }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ config.SITE_URL }}/static/images/logo.png"
+    }
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__content">
+      <span class="hero__eyebrow">🇳🇬 Your Japa Journey Starts Here</span>
+      <h1 class="hero__title">The Complete Guide to Relocating from Nigeria</h1>
+      <p class="hero__description">
+        Expert guides on moving to the UK, Canada, USA, Germany & beyond. 
+        Visa processes, IELTS preparation, cost of living, and everything you need to start your new life abroad.
+      </p>
+      <div class="hero__cta">
+        <a href="{{ url_for('blog') }}" class="btn btn--primary">Explore Guides</a>
+        <a href="{{ url_for('blog') }}?category=uk" class="btn btn--secondary">UK Guides</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular Destinations -->
+<section class="section">
+  <div class="container">
+    <div class="section__header section__header--left">
+      <span class="section__eyebrow">Popular Destinations</span>
+      <h2 class="section__title">Where Nigerians Are Relocating</h2>
+    </div>
+    
+    <div class="articles-grid">
+      {% for post in featured_posts[:3] %}
+      <article class="card fade-in stagger-{{ loop.index }}">
+        {% if post.image_url %}
+        <img 
+          src="{{ post.image_url }}" 
+          alt="{{ post.title }}" 
+          class="card__image"
+          loading="lazy"
+        >
+        {% endif %}
+        <div class="card__content">
+          <span class="card__category">{{ post.category.name }}</span>
+          <h3 class="card__title">
+            <a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a>
+          </h3>
+          <p class="card__excerpt">{{ post.excerpt }}</p>
+          <div class="card__meta">
+            <span class="card__meta-item">{{ post.read_time }}</span>
+            <span class="card__meta-item">{{ post.formatted_date }}</span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Essential Guides Section -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__header section__header--left">
+      <span class="section__eyebrow">Essential Guides</span>
+      <h2 class="section__title">Start Your Japa Journey</h2>
+    </div>
+    
+    <div class="articles-grid">
+      {% for post in recent_posts[:6] %}
+      <article class="card fade-in stagger-{{ loop.index }}">
+        {% if post.image_url %}
+        <img 
+          src="{{ post.image_url }}" 
+          alt="{{ post.title }}" 
+          class="card__image"
+          loading="lazy"
+        >
+        {% endif %}
+        <div class="card__content">
+          <span class="card__category">{{ post.category.name }}</span>
+          <h3 class="card__title">
+            <a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a>
+          </h3>
+          <p class="card__excerpt">{{ post.excerpt }}</p>
+          <div class="card__meta">
+            <span class="card__meta-item">{{ post.read_time }}</span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="{{ url_for('blog') }}" class="btn btn--primary">View All Guides</a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="section">
+  <div class="container">
+    <div class="newsletter">
+      <h2 class="newsletter__title">Get Japa Updates</h2>
+      <p class="newsletter__description">
+        Visa policy changes, new immigration pathways, scholarships, and job opportunities delivered to your inbox.
+      </p>
+      <form class="newsletter__form" id="newsletter-form" action="#" method="POST">
+        <!-- Honeypot field -->
+        <div class="newsletter__honeypot" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+        </div>
+        
+        <input 
+          type="email" 
+          name="email" 
+          class="newsletter__input" 
+          placeholder="Enter your email address" 
+          required
+          aria-label="Email address"
+        >
+        <button type="submit" class="newsletter__btn">Subscribe</button>
+      </form>
+      <p class="form-hint" style="opacity: 0.7; margin-top: 1rem; font-size: 0.8125rem;">
+        Join 10,000+ Nigerians planning their relocation. Unsubscribe anytime.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  // Newsletter form with honeypot validation
+  const newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+      const honeypot = document.getElementById('website');
+      if (honeypot && honeypot.value !== '') {
+        e.preventDefault();
+        return false;
+      }
+      
+      const lastSubmit = localStorage.getItem('newsletter_last_submit');
+      const now = Date.now();
+      if (lastSubmit && (now - parseInt(lastSubmit)) < 60000) {
+        e.preventDefault();
+        alert('Please wait a moment before subscribing again.');
+        return false;
+      }
+      localStorage.setItem('newsletter_last_submit', now.toString());
+    });
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us | {{ config.SITE_NAME }}{% endblock %}
+{% block meta_description %}Get in touch with {{ config.SITE_NAME }}. Questions about our guides, feedback, or partnership inquiries welcome.{% endblock %}
+{% block canonical %}{{ config.SITE_URL }}/contact{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <header class="section__header">
+      <span class="section__eyebrow">Get in Touch</span>
+      <h1 class="section__title">Contact Us</h1>
+      <p class="section__description">
+        Have questions about relocating from Nigeria? Want to share your Japa story or suggest content? We'd love to hear from you.
+      </p>
+    </header>
+
+    <div class="contact-grid">
+      <!-- Contact Information -->
+      <div class="contact-info">
+        <div class="contact-info__item">
+          <h3 class="contact-info__label">📧 Email Us</h3>
+          <p>For general inquiries and feedback:</p>
+          <a href="mailto:{{ config.CONTACT_EMAIL }}">{{ config.CONTACT_EMAIL }}</a>
+        </div>
+        
+        <div class="contact-info__item">
+          <h3 class="contact-info__label">💬 Response Time</h3>
+          <p>We typically respond within 24-48 hours during business days.</p>
+        </div>
+        
+        <div class="contact-info__item">
+          <h3 class="contact-info__label">📝 Content Suggestions</h3>
+          <p>Have a topic you'd like us to cover? Let us know! We're always looking for ideas that help Nigerians navigate their relocation journey.</p>
+        </div>
+        
+        <div class="contact-info__item">
+          <h3 class="contact-info__label">⚠️ Disclaimer</h3>
+          <p>{{ config.SITE_NAME }} provides general information only. We are not immigration lawyers. Always verify information with official sources and consult professionals for your specific situation.</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form">
+        <h2 style="font-family: var(--font-heading); margin-bottom: var(--space-lg);">Send a Message</h2>
+        
+        <form id="contact-form" method="POST" action="{{ url_for('contact') }}">
+          <!-- Honeypot field for bot protection -->
+          <p style="display: none;">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </p>
+
+          <div class="form-group">
+            <label for="name" class="form-label">Your Name *</label>
+            <input type="text" id="name" name="name" class="form-input" required placeholder="Enter your full name">
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-input" required placeholder="your.email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="subject" class="form-label">Subject *</label>
+            <select id="subject" name="subject" class="form-input" required>
+              <option value="">Select a subject...</option>
+              <option value="question">Question about a guide</option>
+              <option value="suggestion">Content suggestion</option>
+              <option value="feedback">General feedback</option>
+              <option value="correction">Report an error</option>
+              <option value="story">Share my Japa story</option>
+              <option value="partnership">Partnership inquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Your Message *</label>
+            <textarea id="message" name="message" class="form-textarea" rows="6" required placeholder="Tell us what's on your mind..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary" style="width: 100%;">Send Message</button>
+          
+          <p class="form-hint" style="margin-top: var(--space-md); text-align: center;">
+            By submitting, you agree to our <a href="{{ url_for('privacy') }}">Privacy Policy</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
